@@ -1,0 +1,24 @@
+/*body {
+    background-color: #f0f4ff !important;
+}*/
+.professorsTable {
+    width: 60%;
+}
+
+.professorsTable td:hover {
+    cursor: pointer;
+}
+
+.addProfessor {
+    width: 400px !important;
+}
+
+
+.btn {
+    margin: 0px 3px 0px 3px;
+}
+
+
+.selected {
+    background-color: #e4b9b9;
+}
