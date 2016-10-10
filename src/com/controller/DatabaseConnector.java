@@ -1,15 +1,18 @@
 package com.controller;
 
+import com.beans.Article;
+import com.beans.PermissionTypes;
 import com.beans.User;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-/**
- * Created by Lena on 31.05.2016.
- */
 public class DatabaseConnector {
 
-    protected Connection getConnection() throws SQLException {
+    private Connection getConnection() throws SQLException {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             return DriverManager.getConnection("jdbc:mysql://localhost/kbrs_lab_1?user=root&password=1111&useSSL=true");
@@ -76,22 +79,69 @@ public class DatabaseConnector {
         return result;
   }
 
-
-  /*  public List<Professor> getProfessorsList() {
-        List<Professor> result = new ArrayList<>();
-        String sql = "SELECT id, name, surname, secondName, user_id FROM professor;";
+    public List<Article> getArticleList() {
+        List<Article> result = new ArrayList<>();
+        String sql = "SELECT * FROM articles;";
+        // String sql1 = "SELECT * FROM permissions WHERE article_id = ?;";
         Connection connection = null;
         try {
             connection = getConnection();
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet set = statement.executeQuery();
-            result = parseResultSet(set);
+            // statement = connection.prepareStatement(sql1);
+            // statement.setString(1, .getName());
+            //  ResultSet set1 = statement.executeQuery();
+            result = parseArticleResultSet(set, connection);
             connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (connection != null)
+                    connection.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
         }
         return result;
     }
+
+    private List<Article> parseArticleResultSet(ResultSet set, Connection connection) {
+        List<Article> list = new ArrayList<>();
+        String sql1 = "SELECT * FROM permissions WHERE article_id = ?;";
+        try {
+            while (set.next()) {
+                Article article = new Article();
+                article.setName(set.getString("name"));
+                article.setText(set.getString("text"));
+                article.setId(set.getInt("id"));
+                PreparedStatement statement = connection.prepareStatement(sql1);
+                statement.setInt(1, article.getId());
+                ResultSet set1 = statement.executeQuery();
+                if (set1.next()) {
+                    Map<Integer, ArrayList<PermissionTypes>> permissions = new HashMap<>();
+                    do {
+                        //   User user = getUserById(set1.getInt("user_id"));
+                        PermissionTypes permissionType = PermissionTypes.getById(set1.getInt("permission_type_id"));
+                        if (permissions.containsKey(set1.getInt("user_id"))) {
+                            permissions.get(set1.getInt("user_id")).add(permissionType);
+                        } else {
+                            permissions.put(set1.getInt("user_id"), new ArrayList<PermissionTypes>() {{
+                                add(permissionType);
+                            }});
+                        }
+                    } while (set1.next());
+                    article.setPermissions(permissions);
+                }
+                list.add(article);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+  /*
 
     private List<Professor>parseResultSet(ResultSet set) {
         List<Professor> list = new ArrayList<>();

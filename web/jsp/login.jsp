@@ -21,7 +21,7 @@
         <div class="form-group"><label for="password">Пароль:</label>
             <input class="form-control"  id="password" type="password" name="password">
         </div>
-        <br/><input type="submit" class="btn btn-default" value="Ок">
+        <br/><input type="submit" class=" btn btn-lg btn-primary btn-block" value="Вход">
     </form>
 </div>
 </body>

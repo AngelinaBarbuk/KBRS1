@@ -1,12 +1,9 @@
 package com.beans;
 
-/**
- * Created by Lena on 31.05.2016.
- */
 public class User {
-    int id;
-    String name;
-    String password;
+    private int id;
+    private String name;
+    private String password;
 
     public int getId() {
         return id;
@@ -32,5 +29,38 @@ public class User {
         this.password = password;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 
+    /*@Override
+    public boolean equals(Object other){
+        if (other == null) return false;
+        if (other == this) return true;
+        if (!(other instanceof User))return false;
+        User otherUser = (User) other;
+        if (otherUser.getId() == this.getId())
+            return  true;
+        return false;
+    }*/
+
+   /* @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        return getId() == user.getId();
+
+    }
+
+    @Override
+    public int hashCode() {
+        return getId();
+    }*/
 }
