@@ -5,17 +5,17 @@ import com.beans.PermissionTypes;
 import com.beans.User;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class DatabaseConnector {
 
     private Connection getConnection() throws SQLException {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            return DriverManager.getConnection("jdbc:mysql://localhost/kbrs_lab_1?user=root&password=1111&useSSL=true");
+            Locale.setDefault(Locale.ENGLISH);
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            return DriverManager.getConnection(
+                    "jdbc:oracle:thin:@localhost:1521:XE", "angelina",
+                    "angelina");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -27,7 +27,7 @@ public class DatabaseConnector {
         Connection connection = null;
         try {
             connection = getConnection();
-            PreparedStatement statement = connection.prepareStatement("SELECT id, name, password FROM users WHERE name LIKE ?;");
+            PreparedStatement statement = connection.prepareStatement("SELECT id, name, password FROM users WHERE name LIKE ?");
             statement.setString(1, user.getName());
             ResultSet set = statement.executeQuery();
             if (set.next()) {
@@ -58,7 +58,7 @@ public class DatabaseConnector {
         User result = new User();
         try {
             connection = getConnection();
-            PreparedStatement statement = connection.prepareStatement("SELECT id, name, password FROM users WHERE id = ?;");
+            PreparedStatement statement = connection.prepareStatement("SELECT id, name, password FROM users WHERE id = ?");
             statement.setInt(1, id);
             ResultSet set = statement.executeQuery();
             if (set.next()) {
@@ -81,7 +81,7 @@ public class DatabaseConnector {
 
     public List<Article> getArticleList() {
         List<Article> result = new ArrayList<>();
-        String sql = "SELECT * FROM articles;";
+        String sql = "SELECT * FROM articles";
         // String sql1 = "SELECT * FROM permissions WHERE article_id = ?;";
         Connection connection = null;
         try {
@@ -108,7 +108,7 @@ public class DatabaseConnector {
 
     private List<Article> parseArticleResultSet(ResultSet set, Connection connection) {
         List<Article> list = new ArrayList<>();
-        String sql1 = "SELECT * FROM permissions WHERE article_id = ?;";
+        String sql1 = "SELECT * FROM permissions WHERE article_id = ?";
         try {
             while (set.next()) {
                 Article article = new Article();

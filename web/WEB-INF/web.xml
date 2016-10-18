@@ -15,5 +15,14 @@
     <welcome-file-list>
         <welcome-file>/jsp/login.jsp</welcome-file>
     </welcome-file-list>
+    
+    <servlet>
+        <servlet-name>ArticlesServlet</servlet-name>
+        <servlet-class>com.servlet.ArticleServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ArticlesServlet</servlet-name>
+        <url-pattern>/web/controller</url-pattern>
+    </servlet-mapping>
 
 </web-app>

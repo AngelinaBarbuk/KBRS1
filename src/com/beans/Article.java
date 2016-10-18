@@ -5,11 +5,26 @@ import java.util.Map;
 
 public class Article {
     private Integer id;
+    private Integer authorId;
     private String name;
     private String text;
     Map<Integer, ArrayList<PermissionTypes>> permissions;
 
     public Article() {
+    }
+
+    public Integer getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(Integer authorId) {
+        this.authorId = authorId;
+    }
+
+    public Article(Integer authorId, String name, String text) {
+        this.authorId = authorId;
+        this.name = name;
+        this.text = text;
     }
 
     public Integer getId() {

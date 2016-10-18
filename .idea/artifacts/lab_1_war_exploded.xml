@@ -7,6 +7,12 @@
         <element id="directory" name="classes">
           <element id="module-output" name="lab_1" />
         </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="json-simple-1.1.1" />
+          <element id="library" level="project" name="jstl-1.2" />
+          <element id="library" level="project" name="mysql-connector-java-5.1.38-bin" />
+          <element id="library" level="application" name="ojdbc6" />
+        </element>
       </element>
     </root>
   </artifact>

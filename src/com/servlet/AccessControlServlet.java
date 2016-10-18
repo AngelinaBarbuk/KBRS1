@@ -16,18 +16,18 @@ import java.io.IOException;
 @WebServlet(name = "AccessControlServlet")
 public class AccessControlServlet extends HttpServlet{
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        service1(request, response);
+        executeRequest(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        service1(request, response);
+        executeRequest(request, response);
     }
 
-    protected void service1(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void executeRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             Action action = AbstractActionFactory.getInstance().getAction(request);
             String view = action.execute(request, response);
-            if (view != null) getServletContext().getRequestDispatcher(view).forward(request, response);
+            if (view != null) response.sendRedirect("/controller");//getServletContext().getRequestDispatcher(view).forward(request, response);
         } catch (Exception e) {
             throw new ServletException("Executing action failed.", e);
         }
