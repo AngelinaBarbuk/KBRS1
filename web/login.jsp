@@ -12,8 +12,8 @@
 <div class="container addProfessor">
     <h2><span style="color: red;" >${error}</span></h2>
     <h3>Введите логин и пароль</h3>
-    <form action="${pageContext.request.contextPath}/AccessControlServlet" method="post">
-        <input type="hidden" id="action" name="action" value="doLogin">
+    <form action="${pageContext.request.contextPath}/controller" method="post">
+        <input type="hidden" id="command" name="command" value="doLogin">
         <div class="form-group">
             <label for="name">Логин:</label>
             <input class="form-control"  type="text" id="name" name="name" >

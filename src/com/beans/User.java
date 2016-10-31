@@ -1,15 +1,28 @@
 package com.beans;
 
+import com.service.ArticleService;
+
+import java.beans.PropertyVetoException;
+import java.io.IOException;
+import java.sql.SQLException;
+
 public class User {
-    private int id;
+    private Integer id;
     private String name;
     private String password;
 
-    public int getId() {
+    public User() {
+    }
+
+    public User(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -36,7 +49,19 @@ public class User {
                 ", name='" + name + '\'' +
                 '}';
     }
+    public boolean checkPermission(Integer articleId, Integer permissionId) {
+        try {
+            return ArticleService.getInstance().checkPermission(id, articleId,permissionId);
+        } catch (SQLException e) {
+            e.printStackTrace();
 
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (PropertyVetoException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
     /*@Override
     public boolean equals(Object other){
         if (other == null) return false;

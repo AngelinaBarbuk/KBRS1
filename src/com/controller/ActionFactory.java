@@ -15,13 +15,22 @@ public class ActionFactory {
 
     public ActionFactory() {
         actions.put("doLogin",new DoLogin());
+        actions.put("AddCommand",new AddCommand());
+        actions.put("AddFormCommand",new AddFormCommand());
+        actions.put("DeleteCommand",new DeleteCommand());
+        actions.put("EditCommand",new EditCommand());
+        actions.put("EditFormCommand",new EditFormCommand());
+        actions.put("ListCommand",new ListCommand());
+        actions.put("ViewCommand",new ViewCommand());
+
+
 
 
     }
 
     public synchronized Action getAction(HttpServletRequest request) {
         String path = /*request.getServletPath() + */request.getPathInfo();
-        String actionKey = /*request.getMethod() +*/ request.getParameter("action");
+        String actionKey = /*request.getMethod() +*/ request.getParameter("command");
         System.out.println(actionKey);
         Action action = actions.get(actionKey);
         if (action == null) {

@@ -9,7 +9,7 @@ import java.util.List;
 public class ArticleController {
     private DatabaseConnector connector = new DatabaseConnector();
 
-    public List<Article> getArticleList() {
+    /*public List<Article> getArticleList() {
         return connector.getArticleList();
-    }
+    }*/
 }

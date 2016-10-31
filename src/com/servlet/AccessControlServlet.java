@@ -13,7 +13,7 @@ import java.io.IOException;
 /**
  * Created by Lena on 31.05.2016.
  */
-@WebServlet(name = "AccessControlServlet")
+@WebServlet(name = "controller")
 public class AccessControlServlet extends HttpServlet{
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         service1(request, response);

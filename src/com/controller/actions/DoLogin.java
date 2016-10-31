@@ -5,6 +5,7 @@ import com.beans.User;
 import com.controller.Action;
 import com.controller.controllers.ArticleController;
 import com.controller.controllers.LoginController;
+import com.service.ArticleService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,14 +29,17 @@ public class DoLogin implements Action {
         if (isValid) {
             HttpSession session = request.getSession(true);
             session.setAttribute("currentSessionUser",user);
+            System.out.println("curr " + session.getAttribute("currentSessionUser"));
             List<Article> articles;
-            articles = articleController.getArticleList();
+           // articles = articleController.getArticleList();
+            articles = ArticleService.getInstance().getArticleList();//.getArticlesListView(user.getId());
+            session.setAttribute("newsList",articles);
             System.out.println(articles);
-            return "/jsp/main.jsp";
+            return "/List.jsp";
         }
         else {
             request.setAttribute("error", "Пользователь или пароль введены неверно!");
-            return "/jsp/login.jsp";
+            return "/login.jsp";
         }
     }
 }
