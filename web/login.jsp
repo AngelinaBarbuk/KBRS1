@@ -6,7 +6,7 @@
 <link href="<%=request.getContextPath()%>/css/bootstrap.min.css" rel="stylesheet">
 <html>
 <head>
-    <title>Логин</title>
+    <title>News</title>
 </head>
 <body>
 <div class="container addProfessor">

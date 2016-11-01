@@ -39,9 +39,11 @@ public class AddCommand implements Action {
                 if (authorId != user.getId()) {
                     String[] userPermissions = request.getParameterValues("check_" + user.getId());
                     System.out.println(userPermissions);
-                    for (String type : userPermissions) {
-                        ArticleService.getInstance().addPermission(user.getId(), articleId, Integer.valueOf(type));
-                    }
+                   if (userPermissions != null) {
+                       for (String type : userPermissions) {
+                           ArticleService.getInstance().addPermission(user.getId(), articleId, Integer.valueOf(type));
+                       }
+                   }
                 } else {
                     List<PermissionType> types = ArticleService.getInstance().getAllPermissionTypes();
                     for (PermissionType permissionType : types) {
